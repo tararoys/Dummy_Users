@@ -11,15 +11,18 @@ get '/login' do
   #if user and pass exist - add user_id to the session
   #needs to have a link to create an account page
   # Look in app/views/index.erb
+  puts "################"
+  puts "Sesson yolo should be empty string: " + (session[:yolo] == "").to_s
   erb :index
 end
 
 post '/login' do
+  session[:yolo] = "Hi there"
   redirect '/secret'
 end
 
 get '/logout' do
-  #remove user_id from the session
+  session[:yolo] = ""
   redirect '/login'
 end
 
@@ -31,16 +34,16 @@ end
 post '/create' do
   User.create(email: params[:email], password_hash: User.hash_password(params[:password]))
 
-  redirect '/secret'
+  redirect '/login'
 end
 
 get '/secret' do
-  # if user_id in session
-  # one view
-  # else
-  # redirect '/login'
-  #end
-  erb :secret
+  puts session[:yolo]
+  unless session[:yolo] == "Hi there"
+    redirect '/login'
+  else
+    erb :secret
+  end
 end
 
 
