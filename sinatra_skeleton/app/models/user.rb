@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
@@ -7,6 +9,13 @@ class User < ActiveRecord::Base
     else
       "you did not type in the right password"
     end
+  end
+
+  def self.hash_password(password)
+    puts password
+    hash_password = Digest::SHA1.hexdigest(password)
+    puts hash_password
+    hash_password
   end
 
 end

@@ -24,10 +24,13 @@ get '/logout' do
 end
 
 get '/create' do
+
   erb :create_user
 end
 
 post '/create' do
+  User.create(email: params[:email], password_hash: User.hash_password(params[:password]))
+
   redirect '/secret'
 end
 
