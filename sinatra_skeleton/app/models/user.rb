@@ -12,10 +12,7 @@ class User < ActiveRecord::Base
   end
 
   def self.hash_password(password)
-    puts password
-    hash_password = Digest::SHA1.hexdigest(password)
-    puts hash_password
-    hash_password
+    Digest::SHA1.hexdigest(password)
   end
 
 end
